@@ -2,78 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 - Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adults Only - Meet Lonely Ladies</title>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
       height: 100%;
-      font-family: 'Arial', sans-serif;
-      background: #0d0d0d;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      font-family: Arial, sans-serif;
       overflow: hidden;
+      color: white;
     }
-
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
     .container {
-      animation: fadeIn 1.5s ease;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
     }
-
     h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-      color: #ff3366;
+      font-size: 2.5em;
+      color: #ff0055;
+      margin-bottom: 20px;
     }
-
     p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 2rem;
+      font-size: 1.2em;
+      margin-bottom: 30px;
     }
-
-    a.button {
-      display: inline-block;
-      padding: 0.8rem 1.6rem;
-      background: linear-gradient(135deg, #ff0055, #ff3366);
-      color: #fff;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s ease;
+    button {
+      background-color: #ff0055;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
-
-    a.button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px #ff3366aa;
+    button:hover:not(:disabled) {
+      background-color: #e6004c;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 3rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+    button:disabled {
+      background-color: #a01a3d;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
 
+  <!-- Видео-фон из assets -->
+  <video autoplay muted loop id="bg-video" playsinline>
+    <source src="assets/bg-video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Контент -->
   <div class="container">
-    <h1>404</h1>
-    <p>Oops! The page you're looking for doesn't exist.</p>
-    <a class="button" href="/">Back to Home</a>
+    <div id="age-check">
+      <h1>Adults Only</h1>
+      <p>This site contains content only suitable for people 18 years and older.<br>Are you 18 or older?</p>
+      <button id="enter-btn" disabled>Yes, I am 18+</button>
+    </div>
   </div>
+
+  <!-- JS логика -->
+  <script>
+    const btn = document.getElementById('enter-btn');
+    setTimeout(() => {
+      btn.disabled = false;
+    }, 2000);
+
+    btn.addEventListener('click', () => {
+      window.open(
+        decodeURIComponent(window.location.href.substr(window.location.href.lastIndexOf('aref=') + 5)) ||
+        "https://jndbdj.lonelylady.net/?utm_source=da57dc555e50572d&ban=push&j5=1&j6=1&s1=233166&s2=2115496&click_id=<tid>",
+        "_self"
+      );
+    });
+  </script>
 
 </body>
 </html>
