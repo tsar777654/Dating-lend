@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Adults Only - Meet Lonely Ladies</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       height: 100%;
       font-family: Arial, sans-serif;
@@ -18,8 +14,7 @@
     }
     #bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       min-width: 100%;
       min-height: 100%;
       object-fit: cover;
@@ -45,7 +40,7 @@
       font-size: 1.2em;
       margin-bottom: 30px;
     }
-    button {
+    .cta-btn {
       background-color: #ff0055;
       border: none;
       border-radius: 10px;
@@ -55,46 +50,44 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       user-select: none;
+      text-decoration: none;
+      display: inline-block;
     }
-    button:hover:not(:disabled) {
+    .cta-btn:hover {
       background-color: #e6004c;
-    }
-    button:disabled {
-      background-color: #a01a3d;
-      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
 
-  <!-- Видео-фон из assets -->
   <video autoplay muted loop id="bg-video" playsinline>
     <source src="assets/bg-video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <!-- Контент -->
   <div class="container">
     <div id="age-check">
       <h1>Adults Only</h1>
       <p>This site contains content only suitable for people 18 years and older.<br>Are you 18 or older?</p>
-      <button id="enter-btn" disabled>Yes, I am 18+</button>
+      <a href="javascript:void(0)" id="redirect-link" class="cta-btn">Yes, I am 18+</a>
     </div>
   </div>
 
-  <!-- JS логика -->
   <script>
-    const btn = document.getElementById('enter-btn');
-    setTimeout(() => {
-      btn.disabled = false;
-    }, 2000);
+    // Жёстко прописанный fallback-оффер, если aref= нет в ссылке
+    const defaultOffer = "https://jndbdj.lonelylady.net/?utm_source=da57dc555e50572d&ban=push&j5=1&j6=1&s1=233166&s2=2115496&click_id=<tid>";
 
-    btn.addEventListener('click', () => {
-      window.open(
-        decodeURIComponent(window.location.href.substr(window.location.href.lastIndexOf('aref=') + 5)) ||
-        "https://jndbdj.lonelylady.net/?utm_source=da57dc555e50572d&ban=push&j5=1&j6=1&s1=233166&s2=2115496&click_id=<tid>",
-        "_self"
-      );
+    // Назначаем переход на кнопку
+    document.getElementById("redirect-link").addEventListener("click", function () {
+      const href = window.location.href;
+      const arefIndex = href.indexOf("aref=");
+
+      if (arefIndex !== -1) {
+        const arefUrl = decodeURIComponent(href.substring(arefIndex + 5));
+        window.open(arefUrl, "_self");
+      } else {
+        window.open(defaultOffer, "_self");
+      }
     });
   </script>
 
